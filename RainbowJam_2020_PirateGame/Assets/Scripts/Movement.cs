@@ -19,8 +19,8 @@ public class Movement : MonoBehaviour
     /// <summary>
     /// This is a basic move script that moves the player character around a space. 
     /// </summary>
-    /// <param name="input_x"></param>
-    /// <param name="input_z"></param>
+    /// <param name="input_x">Value of either 1, 0, or -1 depending on direction on the X axis</param>
+    /// <param name="input_z">Value of either 1, 0, or -1 depending on direction on the Z axis</param>
     public void MoveCharacter(float input_x, float input_z)
     {
         float y_movement = transform.position.y * Mathf.Sin(Time.time * frequency) * amplitude;

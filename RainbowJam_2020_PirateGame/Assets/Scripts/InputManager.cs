@@ -15,7 +15,8 @@ public class InputManager : MonoBehaviour
     //sets the player movement script and checks for null values
     void Start()
     {
-        if(Player == null)
+        Player = GameObject.FindGameObjectWithTag("Player");
+        if (Player == null)
         {
             Debug.LogError("InputManager::Start() -- Player object is null.");
         }
