@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     private Movement playerMovementScript;
     private CameraBehavior cameraBehavior;
 
+    public List<ConversationTrigger> touchedTriggers;
+
     //sets the player movement script and checks for null values
     void Start()
     {

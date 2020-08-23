@@ -18,4 +18,7 @@ public class CharacterScriptableObject : ScriptableObject
     public string DialogueSecondaryHeartEvent;
     public string DialogueTertiaryHeartEvent;
     public string DialogueRejectedHeartEvent;
+
+    [Tooltip("This is the conversation trigger that determines if the player is in conversing distance to this character.")]
+    public ConversationTrigger conversationTrigger;
 }
