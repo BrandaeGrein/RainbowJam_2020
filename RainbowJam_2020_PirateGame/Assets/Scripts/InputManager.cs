@@ -74,6 +74,10 @@ public class InputManager : MonoBehaviour
         {
             cameraBehavior.RotateCamera_Right();
         }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            playerMovementScript.Stabilize();
+        }
 
         else
         {
