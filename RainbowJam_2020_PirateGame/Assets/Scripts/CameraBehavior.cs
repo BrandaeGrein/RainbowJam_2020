@@ -43,13 +43,13 @@ public class CameraBehavior : MonoBehaviour
 
     public void RotateCamera_Left()
     {
-        rotationAngle -= 1f;
+        rotationAngle += 1f;
         MoveCamera();
     }
 
     public void RotateCamera_Right()
     {
-        rotationAngle += 1f;
+        rotationAngle -= 1f;
         MoveCamera();
     }
 

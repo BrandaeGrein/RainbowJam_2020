@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
     {
         float y_movement = transform.position.y * Mathf.Sin(Time.time * frequency) * amplitude;
         Vector3 movement = new Vector3(input_x, y_movement, input_z);
+        transform.Rotate(0, Input.GetAxis("Horizontal") * 60 * Time.deltaTime, 0);
         transform.position += movement * playerSpeed * Time.deltaTime;
     }
 

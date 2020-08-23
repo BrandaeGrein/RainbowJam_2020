@@ -23,6 +23,7 @@ public class ConversationTrigger : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+            Debug.Log("Player has entered trigger area.");
             inputManager.touchedTriggers.Add(this);
         }
     }
@@ -32,6 +33,7 @@ public class ConversationTrigger : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+            Debug.Log("Player has exited trigger area.");
             inputManager.touchedTriggers.Remove(this);
         }
     }
