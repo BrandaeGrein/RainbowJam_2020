@@ -16,10 +16,11 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float frequency = 0.75f;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
-    private bool stabalizing;
-    private Quaternion stabalizingOriginRotation;
+    //Params for stabilizing
+    private bool stabilizing;
+    private Quaternion stabilizingOriginRotation;
     private float rotationPercentage;
     private float rotationRate = 0.08f;
     private float rotationHopSize = 4.5f;
@@ -36,22 +37,34 @@ public class Movement : MonoBehaviour
         transform.position += movement * playerSpeed * Time.deltaTime;
     }
 
-    public void Stabalize()
+    /// <summary>
+    /// Stabilizes the player if they have fallen over
+    /// </summary>
+    public void Stabilize()
     {
-        if (!stabalizing && (Mathf.Abs(transform.rotation.eulerAngles.x) > 45 || Mathf.Abs(transform.rotation.eulerAngles.z) > 45))
+        if (!stabilizing && (Mathf.Abs(transform.rotation.eulerAngles.x) > 45 || Mathf.Abs(transform.rotation.eulerAngles.z) > 45))
         {
-            rigidbody.AddForce(0, rotationHopSize, 0, ForceMode.Impulse);
-            stabalizingOriginRotation = transform.rotation;
-            stabalizing = true;
+            rb.AddForce(0, rotationHopSize, 0, ForceMode.Impulse);
+            stabilizingOriginRotation = transform.rotation;
+            stabilizing = true;
             rotationPercentage = 0;
         }
     }
 
+    //Sets rotation based on original position when stabilizing begun
+    private void SetRotation(float position)
+    {
+        float x = Mathf.Lerp(stabilizingOriginRotation.x, 0, position);
+        float z = Mathf.Lerp(stabilizingOriginRotation.z, 0, position);
+        Quaternion newRotation = new Quaternion(x, transform.rotation.y, z, transform.rotation.w);
+        transform.rotation = newRotation;
+    }
+
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
-        if (rigidbody == null)
+        if (rb == null)
         {
             Debug.LogError("Movement::Start() -- The rigidbody is null");
         }
@@ -59,19 +72,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (stabalizing)
+        if (stabilizing)
         {
             rotationPercentage += (rotationRate * (1 - (rotationPercentage / 1.3f)));
             SetRotation(rotationPercentage);
-            if (rotationPercentage >= 1) stabalizing = false;
+            if (rotationPercentage >= 1) stabilizing = false;
         }
-    }
-
-    private void SetRotation(float position)
-    {
-        float x = Mathf.Lerp(stabalizingOriginRotation.x, 0, position);
-        float z = Mathf.Lerp(stabalizingOriginRotation.z, 0, position);
-        Quaternion newRotation = new Quaternion(x, transform.rotation.y, z, transform.rotation.w);
-        transform.rotation = newRotation;
     }
 }

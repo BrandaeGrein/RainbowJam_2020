@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space))
         {
-            playerMovementScript.Stabalize();
+            playerMovementScript.Stabilize();
         }
 
         else
