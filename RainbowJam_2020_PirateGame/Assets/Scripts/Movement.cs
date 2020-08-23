@@ -16,6 +16,14 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float frequency = 0.75f;
 
+    private Rigidbody rigidbody;
+
+    private bool stabalizing;
+    private Quaternion stabalizingOriginRotation;
+    private float rotationPercentage;
+    private float rotationRate = 0.08f;
+    private float rotationHopSize = 4.5f;
+
     /// <summary>
     /// This is a basic move script that moves the player character around a space. 
     /// </summary>
@@ -28,5 +36,42 @@ public class Movement : MonoBehaviour
         transform.position += movement * playerSpeed * Time.deltaTime;
     }
 
+    public void Stabalize()
+    {
+        if (!stabalizing && (Mathf.Abs(transform.rotation.eulerAngles.x) > 45 || Mathf.Abs(transform.rotation.eulerAngles.z) > 45))
+        {
+            rigidbody.AddForce(0, rotationHopSize, 0, ForceMode.Impulse);
+            stabalizingOriginRotation = transform.rotation;
+            stabalizing = true;
+            rotationPercentage = 0;
+        }
+    }
 
+    private void Start()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+
+        if (rigidbody == null)
+        {
+            Debug.LogError("Movement::Start() -- The rigidbody is null");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (stabalizing)
+        {
+            rotationPercentage += (rotationRate * (1 - (rotationPercentage / 1.3f)));
+            SetRotation(rotationPercentage);
+            if (rotationPercentage >= 1) stabalizing = false;
+        }
+    }
+
+    private void SetRotation(float position)
+    {
+        float x = Mathf.Lerp(stabalizingOriginRotation.x, 0, position);
+        float z = Mathf.Lerp(stabalizingOriginRotation.z, 0, position);
+        Quaternion newRotation = new Quaternion(x, transform.rotation.y, z, transform.rotation.w);
+        transform.rotation = newRotation;
+    }
 }
