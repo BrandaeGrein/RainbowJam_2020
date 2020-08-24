@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class CharacterSO_AttachmentScript : MonoBehaviour
 {
-    public ScriptableObject AssignedCharacterValues;
+    public CharacterScriptableObject AssignedCharacterValues;
+
 }

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605e2d7cf4566aa4aad1b7cc9e36cef1, type: 3}
   m_Name: Character
   m_EditorClassIdentifier: 
-  CharacterName: 
-  CharacterModel: {fileID: 0}
-  DialogueFriendshipLevel0: []
-  DialogueFriendshipLevel1: []
+  Primary: 0
+  Secondary: 0
+  Tertiary: 0
+  CharacterName: HelloWorld
+  DialogueFriendshipLevel0:
+  - friendship level 0 option 1
+  DialogueFriendshipLevel1:
+  - friendship level 1 option 1
+  - friendship level 1 option 2
   DialogueFriendshipLevel2: []
   DialogueFriendshipLevel3: []
   DialoguePrimaryHeartEvent: 

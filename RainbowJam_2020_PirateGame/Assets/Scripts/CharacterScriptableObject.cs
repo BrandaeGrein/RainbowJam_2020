@@ -5,6 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="ScriptableObjects/CharacterScriptableObject")]
 public class CharacterScriptableObject : ScriptableObject
 {
+    public enum LoveLanguage { Gift, Words, Service, Time, Touch }
+
+    public LoveLanguage Primary;
+    public LoveLanguage Secondary;
+    public LoveLanguage Tertiary; 
     public string CharacterName;
 
     [Tooltip("These are the starting dialogue options when the player begins an interaction with an NPC.")]
@@ -19,6 +24,4 @@ public class CharacterScriptableObject : ScriptableObject
     public string DialogueTertiaryHeartEvent;
     public string DialogueRejectedHeartEvent;
 
-    [Tooltip("This is the conversation trigger that determines if the player is in conversing distance to this character.")]
-    public ConversationTrigger conversationTrigger;
 }

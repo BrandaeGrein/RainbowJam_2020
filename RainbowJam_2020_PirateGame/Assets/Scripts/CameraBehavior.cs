@@ -62,8 +62,6 @@ public class CameraBehavior : MonoBehaviour
         Vector3 playerPosition = Player.transform.position;
         float x = (Mathf.Cos((rotationAngle * Mathf.PI) / 180))*radius ;
         float z = (Mathf.Sin((rotationAngle * Mathf.PI) / 180))*radius ;
-
-        Debug.Log("X Value for Cos func is " + Mathf.Cos(rotationAngle));
         return new Vector3(x, height, z);
     }
 
