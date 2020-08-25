@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CameraBehavior))]
 public class InputManager : MonoBehaviour
 {
+    private static InputManager _inputManager;
+
     //Player character is mananged in the inspector
     [SerializeField]
     private GameObject Player;
@@ -81,10 +83,39 @@ public class InputManager : MonoBehaviour
             playerMovementScript.Stabilize();
         }
 
-        else
+        else if (Input.GetKey(KeyCode.F))
         {
+            if(touchedTriggers.Count == 1)
+            {
+                // Check character it is attached to 
+                // pass character name to FriendshipManager
+            }
+        }
+        else {
+            
             // This is then where we would add in other checks such as a key code for 
             // opening dialogue, or inventory, or what have you
+        }
+    }
+
+    static private InputManager inputManager
+    {
+        get
+        {
+            if (_inputManager == null)
+            {
+                Debug.LogError("InputManager:inputManager getter - Attempt to get value of inputManager before it has been set.");
+                return null;
+            }
+            return _inputManager;
+        }
+        set
+        {
+            if (_inputManager != null)
+            {
+                Debug.LogError("InputManager:inputManager setter - Attempt to set inputManager when it has already been set.");
+            }
+            _inputManager = value;
         }
     }
 }

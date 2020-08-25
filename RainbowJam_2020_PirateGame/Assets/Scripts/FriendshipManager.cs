@@ -1,4 +1,4 @@
-﻿#define DEBUG_FriendshipManager
+﻿//#define DEBUG_FriendshipManager
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class FriendshipManager : MonoBehaviour
 {
+    //Static instance of the class
+    private static FriendshipManager _friendship;
+
     private Dictionary<string, CharacterScriptableObject> AllCharactersDictionary;
     private Dictionary<string, int> AllFriendshipLevels;
 
@@ -30,13 +33,12 @@ public class FriendshipManager : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Very simply, this returns the opening lines of a character when the player starts any interaction at any friendship level.
     /// </summary>
     /// <param name="characterName">Simply the string that is the character's name. Character names are automatically made lowercase. </param>
     /// <returns>Returns the string for the dialogue option that comes next.</returns>
-    public string ReturnRandomOpeningDialogueStatement(string characterName)
+    private string ReturnRandomOpeningDialogueStatement(string characterName)
     {
         characterName = characterName.ToLower();
         System.Random random = new System.Random();
@@ -80,7 +82,7 @@ public class FriendshipManager : MonoBehaviour
     /// </summary>
     /// <param name="characterName">Name of character player is interacting with</param>
     /// <param name="increaseAmount">Value should either be 1, 2, or 3</param>
-    public void IncreaseFriendshipLevel(string characterName, int increaseAmount)
+    private void IncreaseFriendshipLevel(string characterName, int increaseAmount)
     {
         characterName = characterName.ToLower();
         int friendshipLevel;
@@ -98,9 +100,63 @@ public class FriendshipManager : MonoBehaviour
 
             }
         }
-        
     }
 
+    /// <summary>
+    /// Returns the heart event dialogue of a character based on a character's name as the input,
+    /// and the number of hearts earned by a particular event.
+    /// </summary>
+    /// <param name="characterName">The name of the character the player is interacting with. </param>
+    /// <param name="HeartsEarned">The number of hearts earned by the player. Default is 0, so rejected event. Other values are 3 hearts earned
+    /// for the primary event, 2 hearts earned for the secondary, and 1 heart earned for the tertiary.</param>
+    /// <returns></returns>
+    private string GetHeartEventDialogue(string characterName, int HeartsEarned = 0)
+    {
+        CharacterScriptableObject character;
+        if(AllCharactersDictionary.TryGetValue(characterName, out character))
+        {
+            switch (HeartsEarned)
+            {
+                case 3:
+                    IncreaseFriendshipLevel(characterName, 3);
+                    return character.DialoguePrimaryHeartEvent;
+                case 2:
+                    IncreaseFriendshipLevel(characterName, 2);
+                    return character.DialogueSecondaryHeartEvent;
+                case 1:
+                    IncreaseFriendshipLevel(characterName, 1);
+                    return character.DialogueTertiaryHeartEvent;
+                default:
+                    return character.DialogueRejectedHeartEvent;
+            } 
+        }
+        else
+        {
+            Debug.LogError("FriendshipManager::GetPrimaryHeartEventDialogue() -- character not found by name");
+            return "Thank you.";
+        }
+    }
+
+    static private FriendshipManager friendship
+    {
+        get
+        {
+            if (_friendship == null)
+            {
+                Debug.LogError("FriendshipManager:friendship getter - Attempt to get value of friendship before it has been set.");
+                return null;
+            }
+            return _friendship;
+        }
+        set
+        {
+            if (_friendship != null)
+            {
+                Debug.LogError("FriendshipManager:friendship setter - Attempt to set friendship when it has already been set.");
+            }
+            _friendship = value;
+        }
+    }
 
 
 }
