@@ -50,24 +50,32 @@ public class InputManager : MonoBehaviour
         // Same with "GetAxisVertical
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            float input_x = 0f, input_z = 0f;
+            float horizontal_movement = 0f, forward_movement = 0f;
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                input_x = -1;
+                horizontal_movement = -1;
             }
             else if (Input.GetAxisRaw("Horizontal") < 0)
             {
-                input_x = 1;
+                horizontal_movement = 1;
+            }
+            else if(Input.GetAxisRaw("Horizontal") == 0)
+            {
+               // playerMovementScript.resetForward();
             }
             if (Input.GetAxisRaw("Vertical") > 0)
             {
-                input_z = -1;
+                forward_movement = -1;
             }
             else if (Input.GetAxisRaw("Vertical") < 0)
             {
-                input_z = 1;
+                forward_movement = 1;
             }
-            playerMovementScript.MoveCharacter(input_x, input_z);
+            else if (Input.GetAxisRaw("Vertical") == 0)
+            {
+                //playerMovementScript.resetForward();
+            }
+            playerMovementScript.MoveCharacter(horizontal_movement, forward_movement);
             cameraBehavior.MoveCamera();
         }
         if (Input.GetKey(KeyCode.Q))
@@ -78,7 +86,11 @@ public class InputManager : MonoBehaviour
         {
             cameraBehavior.RotateCamera_Right();
         }
-        else if (Input.GetKey(KeyCode.Space))
+        else
+        {
+            cameraBehavior.ResetCamera_OriginalAngle();
+        }
+        if (Input.GetKey(KeyCode.Space))
         {
             playerMovementScript.Stabilize();
         }
@@ -91,6 +103,7 @@ public class InputManager : MonoBehaviour
                 // pass character name to FriendshipManager
             }
         }
+
         else {
             
             // This is then where we would add in other checks such as a key code for 

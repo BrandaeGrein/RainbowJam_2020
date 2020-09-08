@@ -28,14 +28,22 @@ public class Movement : MonoBehaviour
     /// <summary>
     /// This is a basic move script that moves the player character around a space. 
     /// </summary>
-    /// <param name="input_x">Value of either 1, 0, or -1 depending on direction on the X axis</param>
+    /// <param name="horizontal_movement">Value of either 1, 0, or -1 depending on direction on the X axis</param>
     /// <param name="input_z">Value of either 1, 0, or -1 depending on direction on the Z axis</param>
-    public void MoveCharacter(float input_x, float input_z)
+    public void MoveCharacter(float horizontal_movement, float forward_movement)
     {
+        //WORKING SCRIPT
         float y_movement = transform.position.y * Mathf.Sin(Time.time * frequency) * amplitude;
-        Vector3 movement = new Vector3(input_x, y_movement, input_z);
-        transform.Rotate(0, Input.GetAxis("Horizontal") * 60 * Time.deltaTime, 0);
-        transform.position += movement * playerSpeed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontal_movement, y_movement, forward_movement);
+        Vector3 lookRotation = new Vector3(-forward_movement, 0f, horizontal_movement);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), 0.15F);
+        transform.Translate(movement * playerSpeed * Time.deltaTime, Space.World);
+        //END OF WORKING SCRIPT
+
+    }
+    public void resetForward()
+    {
+        transform.LookAt(transform.forward);
     }
 
     /// <summary>

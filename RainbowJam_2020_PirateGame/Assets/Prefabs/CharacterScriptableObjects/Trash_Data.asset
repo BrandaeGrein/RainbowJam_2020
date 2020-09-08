@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605e2d7cf4566aa4aad1b7cc9e36cef1, type: 3}
+  m_Name: Trash_Data
+  m_EditorClassIdentifier: 
+  Primary: 0
+  Secondary: 4
+  Tertiary: 1
+  CharacterName: Trash
+  DialogueFriendshipLevel0:
+  - Hey boss... man, I could really use a pick-me-up. You got anything?
+  - What?
+  - May I offer you a nice egg in this trying time?
+  DialogueFriendshipLevel1:
+  - "Did I tell you about that time I was in that famous restaurant? \u2026 So anyway,
+    I started blasting-- Oh, did you need something from me?"
+  - "I love my birthday. It\u2019s my favorite holiday -- for obvious reasons of
+    course."
+  DialogueFriendshipLevel2:
+  - Did I tell you about that time I went apple picking? So anyway, I started blasting
+    and-- Oh, did you need something from me?
+  DialogueFriendshipLevel3:
+  - So that Tsun, huh? Sounds like you like them as much as I like my best garbage
+    rock.
+  - "And then they said, \u2018Wow, that\u2019s a magnum--\u2019 Oh, did ya need
+    something from me?"
+  - Did I tell you about that time that I went to the park? So anyway, I started
+    blasting and-- Oh, did you need something from me?
+  DialoguePrimaryHeartEvent: My heart is filled with love and garbage for you.
+  DialogueSecondaryHeartEvent: "I appreciate this. You\u2019re a better person than
+    I remember."
+  DialogueTertiaryHeartEvent: "... Uh. Cool. I guess. You\u2019re trying."
+  DialogueRejectedHeartEvent: "... Can\u2019t you just get me a nice egg?"

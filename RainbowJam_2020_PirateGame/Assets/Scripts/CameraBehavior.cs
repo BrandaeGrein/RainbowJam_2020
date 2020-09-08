@@ -10,11 +10,11 @@ public class CameraBehavior : MonoBehaviour
 
     [Tooltip("How far the camera is behind the character")]
     [SerializeField]
-    private float radius = 5;
+    private float radius = 15;
 
     [Tooltip("How high the camera is off the ground")]
     [SerializeField]
-    private float height = 5;
+    private float height = 15;
 
     // This value will determine where the camera is around the player based on Unit Circle calculations
     private float rotationAngle;
@@ -50,6 +50,11 @@ public class CameraBehavior : MonoBehaviour
     public void RotateCamera_Right()
     {
         rotationAngle -= 1f;
+        MoveCamera();
+    }
+    public void ResetCamera_OriginalAngle()
+    {
+        rotationAngle = 90f;
         MoveCamera();
     }
 
